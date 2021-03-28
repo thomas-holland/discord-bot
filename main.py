@@ -1,18 +1,20 @@
 # main python function for the boto
 import os
 import discord
-from discord.ext import commands
 
 client = discord.Client()
-bot = commands.Bot(command_prefix='|')
 
 @client.event
 async def on_ready(): # start up call
     print('We have logged in as {0.user}'.format(client))
 
-@bot.command()
-async def test(ctx, arg):
-    await ctx.send(arg)
+@client.event
+async def on_message(message): # there is a message in a channel that the bot has access to
+    if message.author == client.user: # checks if the message was sent by the bot
+        return # ignore the message (avoids loops)
+
+    if message.content.startswith('hello'): # very basic hello script to test
+        await message.channel.send('Hello!')
 
 
 BOT_KEY = os.environ["BOT_KEY"] # gets the bot key from the host platform (so it is not hosted on github)
