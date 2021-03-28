@@ -15,6 +15,10 @@ async def on_message(message): # there is a message in a channel that the bot ha
 
     if message.content.startswith('hello'): # very basic hello script to test
         await message.channel.send('Hello!')
+    
+    for mention in ["407200359795261441", "723842913213218856"]:
+        if f'<@!mention>' in message.content:
+            message.add_reaction(mention)
 
 
 BOT_KEY = os.environ["BOT_KEY"] # gets the bot key from the host platform (so it is not hosted on github)
